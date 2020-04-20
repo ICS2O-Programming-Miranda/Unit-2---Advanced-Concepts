@@ -1,14 +1,13 @@
 -----------------------------------------------------------------------------------------
---
--- main.lua
--- Created by: Your Name
--- Date: Month Day, Year
--- Description: This calls the splash screen of the app to load itself.
+-- Title: SampleVideoGame
+-- Name: Miranda.B
+-- Course: ICS2O
+-- This program...
 -----------------------------------------------------------------------------------------
 
 -- Hiding Status Bar
--- HIDE THE STATUS BAR
-
+display.setStatusBar(display.HiddenStatusBar)
+ 
 -----------------------------------------------------------------------------------------
 
 -- Use composer library

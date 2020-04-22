@@ -41,13 +41,14 @@ local function moveStar()
     star.x = star.x - scrollXSpeed
     star.y = star.y - scrollYSpeed
      -- make the star fade out
-    star.alpha = star.alpha - 0.001
+    star.alpha = star.alpha + 0.01
 end
 
 -- The function that will go to the main menu 
 local function gotoMainMenu()
-    composer.gotoScene( "main_menu" )
+    composer.gotoScene( "main_menu", {effect = "crossFade", time = 1000})
 end
+
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -67,10 +68,10 @@ function scene:create( event )
 
     -- set the initial x and y position of the star
     star.x = 1024
-    star.y = display.contentHeight/2
+    star.y = display.contentHeight*1/3
 
     --set star to full colour
-    star.alpha = 1
+    star.alpha = 0
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( star )
@@ -104,7 +105,7 @@ function scene:show( event )
         Runtime:addEventListener("enterFrame", moveStar)
 
         -- Go to the main menu screen after the given time.
-        timer.performWithDelay ( 3000, gotoMainMenu)          
+        timer.performWithDelay ( 2000, gotoMainMenu)          
         
     end
 

@@ -32,6 +32,14 @@ local scene = composer.newScene( sceneName )
 local bkg_image
 
 -----------------------------------------------------------------------------------------
+-- LOCAL FUNCTIONS
+-----------------------------------------------------------------------------------------
+
+-- Creating Transitioning Function back to main menu
+local function BackTransition( )
+    composer.gotoScene( "main_menu", {effect = "fromBottom", time = 1000})
+end
+-----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
 

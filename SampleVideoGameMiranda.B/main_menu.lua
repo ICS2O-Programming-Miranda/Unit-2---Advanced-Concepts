@@ -38,6 +38,13 @@ local creditsButton
 local instructionsButton
 
 -----------------------------------------------------------------------------------------
+-- SOUNDS
+-----------------------------------------------------------------------------------------
+--create the Sounds
+local bkgMusic = audio.loadSound("Sounds/background music.mp3")
+local bkgMusicChannel
+
+-----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
@@ -186,7 +193,10 @@ function scene:show( event )
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then       
-        
+     
+     --play background music 
+     bkgMusicChannel = audio.play(bkgMusic)
+
 
     end
 
@@ -215,6 +225,9 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+
+        --stop bkg music
+        audio.stop(bkgMusicChannel)
     end
 
 end -- function scene:hide( event )

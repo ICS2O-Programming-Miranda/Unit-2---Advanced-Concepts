@@ -29,8 +29,8 @@ local scrollYSpeed = -3
 ----------------------------------------------------------------------------------------
 -- SOUNDS
 -----------------------------------------------------------------------------------------
-local jungleSounds = audio.loadSound("Sounds/animals144.mp3")
-local jungleSoundsChannel
+local splashScreenSound = audio.loadSound("Sounds/Splash screen sound.wav")
+local SplashScreenSoundsChannel
 
 --------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -98,7 +98,7 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         -- start the splash screen music
-        jungleSoundsChannel = audio.play(jungleSounds )
+        SplashScreenSoundsChannel = audio.play(splashScreenSound )
 
         -- Call the moveBeetleship function as soon as we enter the frame.
         Runtime:addEventListener("enterFrame", moveStar)
@@ -132,7 +132,7 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         
         -- stop the jungle sounds channel for this screen
-        audio.stop(jungleSoundsChannel)
+        audio.stop(SplashScreenSoundsChannel)
     end
 
 end --function scene:hide( event )

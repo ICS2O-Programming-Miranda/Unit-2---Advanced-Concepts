@@ -1,9 +1,9 @@
 -----------------------------------------------------------------------------------------
--- you_lose.lua
+-- you_win.lua
 -- Created by: Gil Robern
 -- Modified by: Miranda.B
 -- Date: April 23,2020
--- Description: This shows the player that they lost the game and plays a booing sound.
+-- Description: This shows the player that they win the game and plays a sound.
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
@@ -18,7 +18,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "you_lose"
+sceneName = "you_win"
 
 -----------------------------------------------------------------------------------------
 
@@ -48,7 +48,7 @@ function scene:create( event )
     local sceneGroup = self.view
 
     -- Display background
-    bkg = display.newImage("Images/You Lose.png")
+    bkg = display.newImage("Images/You Win Screen.png")
     bkg.x = display.contentCenterX
     bkg.y = display.contentCenterY
     bkg.width = display.contentWidth

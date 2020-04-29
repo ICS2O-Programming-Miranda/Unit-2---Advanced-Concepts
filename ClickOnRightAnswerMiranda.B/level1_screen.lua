@@ -82,6 +82,17 @@ local alreadyClickedAnswer = false
 -----------------------------------------------------------------------------------------
 -- SOUND
 -----------------------------------------------------------------------------------------
+-- Create the sound effect for when the user gets the answer wrong
+local wrongSound = audio.loadSound("Sounds/WrongBuzzer.mp3")
+local wrongSoundChannel
+
+-- Create the sound effect for when the user gets the answer right
+local correctSound = audio.loadSound("Sounds/CorrectAnswer.mp3")
+local correctSoundChannel
+
+-- Create the You Win background music
+--local youWinSound = audio.loadSound("Sounds/youWinSound.wav")
+--local youWinSoundChannel
 
 
 -----------------------------------------------------------------------------------------
@@ -176,6 +187,8 @@ local function RestartScene()
 
     elseif (numberCorrect == 3) then
         composer.gotoScene("you_win")
+        --play the You Win sound
+        --youWinSoundChannel = audio.play(youWinSound)
 
     else 
 
@@ -201,6 +214,8 @@ local function TouchListenerAnswer(touch)
             numberCorrect = numberCorrect + 1
             -- call RestartScene after 1 second
             timer.performWithDelay( 1000, RestartScene )
+            --play correct sound effect
+            correctSoundChannel = audio.play(correctSound)
         end        
 
     end
@@ -216,10 +231,15 @@ local function TouchListenerWrongAnswer1(touch)
 
 
         if (answer ~= tonumber(userAnswer)) then
+            -- if the user gets the answer wrong then display incorrect
+            incorrect.isVisible = true
             -- decrease a life
             lives = lives - 1
+             --play incorrect sound effect     
+             wrongSoundChannel = audio.play(wrongSound)  
             -- call RestartScene after 1 second
-            timer.performWithDelay( 1000, RestartScene )            
+            timer.performWithDelay( 1000, RestartScene ) 
+                 
         end        
 
     end
@@ -236,10 +256,15 @@ local function TouchListenerWrongAnswer2(touch)
 
 
             if (answer ~= tonumber(userAnswer)) then
+                -- if the user gets the answer wrong then display incorrect
+            incorrect.isVisible = true
                 -- decrease a life
                 lives = lives - 1
+                 --play incorrect sound effect     
+                wrongSoundChannel = audio.play(wrongSound)  
                 -- call RestartScene after 1 second
-                timer.performWithDelay( 1000, RestartScene )            
+                timer.performWithDelay( 1000, RestartScene )
+                          
             end        
     
         end
@@ -256,10 +281,15 @@ end
 
 
             if (answer ~= tonumber(userAnswer)) then
+                -- if the user gets the answer wrong then display incorrect
+            incorrect.isVisible = true
                 -- decrease a life
                 lives = lives - 1
+                 --play incorrect sound effect     
+                wrongSoundChannel = audio.play(wrongSound)  
                 -- call RestartScene after 1 second
-                timer.performWithDelay( 1000, RestartScene )            
+                timer.performWithDelay( 1000, RestartScene )
+                      
             end        
     
         end
@@ -334,6 +364,11 @@ function scene:create( event )
     correct = display.newText("Correct", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
     correct:setTextColor(100/255, 47/255, 210/255)
     correct.isVisible = false
+
+    -- create the text object that will say Incorrect, set the colour and then hide it
+    incorrect = display.newText("Incorrect", display.contentWidth/2, display.contentHeight*1/3, nil, 50 )
+    incorrect:setTextColor(210/255, 47/255, 47/255)
+    incorrect.isVisible = false 
 
     -- create the text object that will say Out of Time, set the colour and then hide it
     outOfTimeText = display.newText("Out of Time!", display.contentWidth*2/5, display.contentHeight*1/3, nil, 50)

@@ -90,10 +90,6 @@ local wrongSoundChannel
 local correctSound = audio.loadSound("Sounds/CorrectAnswer.mp3")
 local correctSoundChannel
 
--- Create the You Win background music
---local youWinSound = audio.loadSound("Sounds/youWinSound.wav")
---local youWinSoundChannel
-
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -187,8 +183,7 @@ local function RestartScene()
 
     elseif (numberCorrect == 3) then
         composer.gotoScene("you_win")
-        --play the You Win sound
-        --youWinSoundChannel = audio.play(youWinSound)
+     
 
     else 
 

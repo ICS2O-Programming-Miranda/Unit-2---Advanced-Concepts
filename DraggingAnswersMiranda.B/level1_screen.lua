@@ -27,6 +27,7 @@ local scene = composer.newScene( sceneName )
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
+
 -- The background image and soccer ball for this scene
 local bkg_image
 local soccerball
@@ -71,10 +72,20 @@ local alternateAnswerBox3PreviousX
 -- the black box where the user will drag the answer
 local userAnswerBoxPlaceholder
 
+-----------------------------------------------------------------------------------------
+-- SOUNDS
+-----------------------------------------------------------------------------------------
+
 -- sound effects
-local correctSound
-local booSound
-local bkgMusic
+local correctSound = audio.loadSound("Sounds/Correct.wav")
+local correctSoundChannel
+
+local booSound = audio.loadSound("Sounds/boo.mp3")
+local booSoundChannel
+
+--create bkg music 
+local bkgMusic = audio.loadSound("Sounds/background music.mp3")
+local bkgMusicChannel
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -142,82 +153,116 @@ local function PositionAnswers()
     -- random position 1
     if (randomPosition == 1) then
         -- set the new y-positions of each of the answers
-        answerbox.y = display.contentHeight * 0.4
+        answerbox.y = display.contentHeight * 0.85
+        answerbox.x = display.contentWidth * 0.9
 
         --alternateAnswerBox2
         alternateAnswerBox2.y = display.contentHeight * 0.70
+        alternateAnswerBox2.x = display.contentWidth * 0.9
 
         --alternateAnswerBox1
-        alternateAnswerBox1.y = display.contentHeight * 0.55
+        alternateAnswerBox1.y = display.contentHeight * 0.70
+        alternateAnswerBox1.x = display.contentWidth * 0.75
 
         --alternateAnswerBox3
-        alternateAnswerBox3.y = display.contentHeight * 0.25
+        alternateAnswerBox3.y = display.contentHeight * 0.85
+        alternateAnswerBox3.x = display.contentWidth * 0.75
 
 
         ---------------------------------------------------------
         --remembering their positions to return the answer in case it's wrong
         alternateAnswerBox1PreviousY = alternateAnswerBox1.y
+        alternateAnswerBox1PreviousX = alternateAnswerBox1.x
         alternateAnswerBox2PreviousY = alternateAnswerBox2.y
+        alternateAnswerBox2PreviousX = alternateAnswerBox2.x
         alternateAnswerBox3PreviousY = alternateAnswerBox3.y
+        alternateAnswerBox3PreviousX = alternateAnswerBox3.x
         answerboxPreviousY = answerbox.y 
+        answerboxPreviousX = answerbox.x
 
     -- random position 2
     elseif (randomPosition == 2) then
 
-        answerbox.y = display.contentHeight * 0.25
+        answerbox.y = display.contentHeight * 0.70
+        answerbox.x = display.contentWidth * 0.9
         
         --alternateAnswerBox2
-        alternateAnswerBox2.y = display.contentHeight * 0.4
+        alternateAnswerBox2.y = display.contentHeight * 0.70
+        alternateAnswerBox2.x = display.contentWidth * 0.75
 
         --alternateAnswerBox1
-        alternateAnswerBox1.y = display.contentHeight * 0.70
+        alternateAnswerBox1.y = display.contentHeight * 0.85
+        alternateAnswerBox1.x = display.contentWidth * 0.75 
 
         --alternateAnswerBox3
-        alternateAnswerBox3.y = display.contentHeight * 0.55
+        alternateAnswerBox3.y = display.contentHeight * 0.85
+        alternateAnswerBox3.x = display.contentWidth * 0.9
 
         --remembering their positions to return the answer in case it's wrong
         alternateAnswerBox1PreviousY = alternateAnswerBox1.y
+        alternateAnswerBox1PreviousX = alternateAnswerBox1.x
         alternateAnswerBox2PreviousY = alternateAnswerBox2.y
+        alternateAnswerBox2PreviousX = alternateAnswerBox2.x
         alternateAnswerBox3PreviousY = alternateAnswerBox3.y
+        alternateAnswerBox3PreviousX = alternateAnswerBox3.x
         answerboxPreviousY = answerbox.y 
+        answerboxPreviousX = answerbox.x
 
     -- random position 3
      elseif (randomPosition == 3) then
-        answerbox.y = display.contentHeight * 0.55
+        answerbox.y = display.contentHeight * 0.70
+        answerbox.x = display.contentWidth * 0.75
 
         --alternateAnswerBox2
-        alternateAnswerBox2.y = display.contentHeight * 0.25
+        alternateAnswerBox2.y = display.contentHeight * 0.85
+        alternateAnswerBox2.x = display.contentWidth * 0.75
 
         --alternateAnswerBox1
-        alternateAnswerBox1.y = display.contentHeight * 0.4
+        alternateAnswerBox1.y = display.contentHeight * 0.85
+        alternateAnswerBox1.x = display.contentWidth * 0.9 
+
 
           --alternateAnswerBox3
         alternateAnswerBox3.y = display.contentHeight * 0.70
+        alternateAnswerBox3.x = display.contentWidth * 0.9
 
         --remembering their positions to return the answer in case it's wrong
         alternateAnswerBox1PreviousY = alternateAnswerBox1.y
+        alternateAnswerBox1PreviousX = alternateAnswerBox1.x
         alternateAnswerBox2PreviousY = alternateAnswerBox2.y
+        alternateAnswerBox2PreviousX = alternateAnswerBox2.x
         alternateAnswerBox3PreviousY = alternateAnswerBox3.y
+        alternateAnswerBox3PreviousX = alternateAnswerBox3.x
         answerboxPreviousY = answerbox.y 
+        answerboxPreviousX = answerbox.x
 
     -- random position 4
      elseif (randomPosition == 4) then
-        answerbox.y = display.contentHeight * 0.70
+        answerbox.y = display.contentHeight * 0.85
+        answerbox.x = display.contentWidth * 0.75
 
         --alternateAnswerBox2
-        alternateAnswerBox2.y = display.contentHeight * 0.55
+        alternateAnswerBox2.y = display.contentHeight * 0.85
+        alternateAnswerBox2.x = display.contentWidth * 0.9
 
         --alternateAnswerBox1
-        alternateAnswerBox1.y = display.contentHeight * 0.25
+        alternateAnswerBox1.y = display.contentHeight * 0.70
+        alternateAnswerBox1.x = display.contentWidth * 0.9
 
-          --alternateAnswerBox3
-        alternateAnswerBox3.y = display.contentHeight * 0.4
+        --alternateAnswerBox3
+        alternateAnswerBox3.y = display.contentHeight * 0.70
+        alternateAnswerBox3.x = display.contentWidth * 0.75
 
+    
         --remembering their positions to return the answer in case it's wrong
         alternateAnswerBox1PreviousY = alternateAnswerBox1.y
+        alternateAnswerBox1PreviousX = alternateAnswerBox1.x
         alternateAnswerBox2PreviousY = alternateAnswerBox2.y
+        alternateAnswerBox2PreviousX = alternateAnswerBox2.x
         alternateAnswerBox3PreviousY = alternateAnswerBox3.y
+        alternateAnswerBox3PreviousX = alternateAnswerBox3.x
         answerboxPreviousY = answerbox.y 
+        answerboxPreviousX = answerbox.x
 
     end
 end
@@ -225,6 +270,11 @@ end
 -- Transitioning Function to YouWin screen
 local function YouWinTransitionLevel1( )
     composer.gotoScene("you_win", {effect = "fade", time = 500})
+end
+
+-- Transitioning Function to YouLose screen
+local function YouLoseTransitionLevel1( )
+    composer.gotoScene("you_lose", {effect = "fade", time = 500})
 end
 
 -- Function to Restart Level 1
@@ -236,6 +286,23 @@ end
 
 -- Function to Check User Input
 local function CheckUserAnswerInput()
+
+    if (correctAnswer == userAnswer) then
+        if (numCorrect == 3)then
+            YouWinTransitionLevel1()
+        else
+
+            timer.performWithDelay(1600, RestartLevel1) 
+        end
+    else    
+        if (numWrong == 2)then 
+            YouLoseTransitionLevel1()
+        else
+            timer.performWithDelay(1600, RestartLevel1) 
+        end
+
+    end
+
           
     timer.performWithDelay(1600, RestartLevel1) 
 end
@@ -272,6 +339,12 @@ local function TouchListenerAnswerbox(touch)
                 answerbox.x = userAnswerBoxPlaceholder.x
                 answerbox.y = userAnswerBoxPlaceholder.y
                 userAnswer = correctAnswer
+
+                -- Add point to numCorrect
+                numCorrect = numCorrect + 1
+
+                --play correct sound effect
+                correctSoundChannel = audio.play(correctSound)
 
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
@@ -315,6 +388,12 @@ local function TouchListenerAnswerBox1(touch)
 
                 userAnswer = alternateAnswer1
 
+                -- add point to numWrong
+                numWrong = numWrong + 1
+
+                --play incorrect sound effect
+                booSoundChannel = audio.play(booSound)
+
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
 
@@ -356,6 +435,12 @@ local function TouchListenerAnswerBox2(touch)
                 alternateAnswerBox2.y = userAnswerBoxPlaceholder.y
                 userAnswer = alternateAnswer2
 
+                -- add point to numWrong
+                numWrong = numWrong + 1
+
+                --play incorrect sound effect
+                booSoundChannel = audio.play(booSound)
+
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
 
@@ -396,6 +481,12 @@ local function TouchListenerAnswerBox3(touch)
                 alternateAnswerBox3.x = userAnswerBoxPlaceholder.x
                 alternateAnswerBox3.y = userAnswerBoxPlaceholder.y
                 userAnswer = alternateAnswer3
+
+                -- add point to numWrong
+                numWrong = numWrong + 1
+
+                --play incorrect sound effect
+                booSoundChannel = audio.play(booSound)
 
                 -- call the function to check if the user's input is correct or not
                 CheckUserAnswerInput()
@@ -522,6 +613,14 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+
+        --play bkg music
+        bkgMusicChannel = audio.play(bkgMusic)
+
+        -- tracking the points and incorrects
+        local numCorrect = 0
+        local numWrong = 0
+
         RestartLevel1()
         AddAnswerBoxEventListeners() 
 
@@ -544,6 +643,9 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+
+        --stop bkg music
+        audio.stop(bkgMusicChannel)
         
 
     -----------------------------------------------------------------------------------------

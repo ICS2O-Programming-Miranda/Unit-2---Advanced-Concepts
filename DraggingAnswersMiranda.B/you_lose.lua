@@ -29,6 +29,14 @@ local scene = composer.newScene( sceneName ) -- This function doesn't accept a s
 -----------------------------------------------------------------------------------------
 -- DISPLAY OBJECTS
 -----------------------------------------------------------------------------------------
+
+-- Create the you lose bkg music
+local youLoseMusic = audio.loadSound("Sounds/youLoseSound.mp3")
+local youLoseMusicChannel
+
+-----------------------------------------------------------------------------------------
+-- DISPLAY OBJECTS
+-----------------------------------------------------------------------------------------
 local bkg_image
 
 -- The function called when the screen doesn't exist
@@ -74,6 +82,9 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
+
+        youLoseMusicChannel = audio.play(youLoseMusic)
+
     end
 
 end -- function scene:show( event )
@@ -96,6 +107,8 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+
+        audio.stop(youLoseMusicChannel)
 
     -----------------------------------------------------------------------------------------
 

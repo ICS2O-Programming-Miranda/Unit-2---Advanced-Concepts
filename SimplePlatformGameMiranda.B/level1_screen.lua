@@ -28,6 +28,12 @@ sceneName = "level1_screen"
 local scene = composer.newScene( sceneName )
 
 -----------------------------------------------------------------------------------------
+-- GLOBAL VARIABLES
+-----------------------------------------------------------------------------------------
+
+soundOn = true
+
+-----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
@@ -76,6 +82,9 @@ local ball2
 local ball3
 local theBall
 
+local muteButton
+local unmuteButton
+
 local questionsAnswered = 0
 
 
@@ -84,8 +93,12 @@ local questionsAnswered = 0
 ----------------------------------------------------------------------------------------- 
 
 -- Create the sound for when user is on spikes1
-local spikeSound = audio.loadSound("Sound/cartoon014.wav")
+local spikeSound = audio.loadSound("Sounds/spike noise.mp3")
 local spikeSoundChannel
+
+-- create background music
+local bkgMusic = audio.loadSound("Sounds/bkgMusic.mp3")
+local bkgMusicChannel
 
 -----------------------------------------------------------------------------------------
 -- LOCAL SCENE FUNCTIONS
@@ -145,6 +158,49 @@ local function RemoveRuntimeListeners()
     Runtime:removeEventListener("touch", stop )
 end
 
+local function Mute(touch)
+    if (touch.phase == "ended")then
+     --pause the music
+     audio.pause(bkgMusicChannel)
+
+     --Turn the sound variable off
+     soundOn = false
+
+     --make unmute button invisible and mute button visible
+     muteButton.isVisible = true
+     unmuteButton.isVisible = false 
+    end
+end
+
+local function AddMuteUnMuteListeners()
+    unmuteButton:addEventListener("touch", Mute)
+end
+
+local function RemoveMuteUnMuteListeners()
+    unmuteButton:removeEventListener("touch", Mute)
+end
+
+local function UnMute(touch)
+    if (touch.phase == "ended")then
+     --play the music
+     audio.resume(bkgMusicChannel)
+
+     --Turn the sound variable on
+     soundOn = true
+
+     --make unmute button visible and mute button invisible
+     muteButton.isVisible = false
+     unmuteButton.isVisible = true
+    end 
+end
+
+local function AddUNMuteMuteListeners()
+    muteButton:addEventListener("touch", UnMute)
+end
+
+local function RemoveUnMuteMuteListeners()
+    muteButton:removeEventListener("touch", UnMute)
+end
 
 local function ReplaceCharacter()
     character = display.newImageRect("Images/KickyKatRight.png", 100, 150)
@@ -579,6 +635,25 @@ function scene:create( event )
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( ball3 )
 
+    --create the mute and unmute button 
+    muteButton = display.newImageRect ("Images/Mute button.png", 70, 70)
+    muteButton.x = 50
+    muteButton.y = 720
+    muteButton.isVisible = false
+
+    -- Insert objects into the scene group in order to ONLY be associated with this scene
+    sceneGroup:insert( muteButton )
+
+    unmuteButton = display.newImageRect ("Images/Unmute button.png", 70, 70)
+    unmuteButton.x = 50
+    unmuteButton.y = 720
+    unmuteButton.isVisible = true
+
+    -- Insert objects into the scene group in order to ONLY be associated with this scene
+    sceneGroup:insert( unmuteButton )
+
+
+
 end --function scene:create( event )
 
 -----------------------------------------------------------------------------------------
@@ -608,6 +683,9 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
 
+        --play bkg music only on level 1 screen
+        bkgMusicChannel = audio.play(bkgMusic, {loops = -1})
+
         numLives = 2
         questionsAnswered = 0
 
@@ -625,6 +703,10 @@ function scene:show( event )
 
         -- create the character, add physics bodies and runtime listeners
         ReplaceCharacter()
+
+        --add mute and unmute functionality to the buttons
+        AddMuteUnMuteListeners()
+        AddUNMuteMuteListeners()
 
     end
 
@@ -650,6 +732,10 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+
+        --stop the bkg music when leaving level 1 screen
+        audio.stop(bkgMusicChannel)
+
         RemoveCollisionListeners()
         RemovePhysicsBodies()
 
@@ -657,6 +743,11 @@ function scene:hide( event )
         RemoveArrowEventListeners()
         RemoveRuntimeListeners()
         display.remove(character)
+
+        RemoveMuteUnMuteListeners()
+        RemoveUnMuteMuteListeners()
+
+
     end
 
 end --function scene:hide( event )

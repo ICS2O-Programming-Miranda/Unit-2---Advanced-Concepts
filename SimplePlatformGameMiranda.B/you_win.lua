@@ -36,7 +36,7 @@ local bkg
 ----------------------------------------------------------------------------------------
 
 -- Create "You Win screen" sound
-local youWinSound = audio.loadSound("Sounds/Cheer.m4a")
+local youWinSound = audio.loadSound("Sounds/you win bkg/mp3")
 local youWinSoundChannel
 
 ----------------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
 
         --play "you win" screen sound
-        youWinSoundChannel = audio.play(youWinSound)
+        youWinSoundChannel = audio.play(youWinSound, {loops = -1})
     end
 
 end
@@ -120,6 +120,10 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+
+        --stop the music
+        audio.stop(youWinSoundChannel)
+
     end
 
 end

@@ -36,7 +36,7 @@ local bkg
 ----------------------------------------------------------------------------------------
 
 -- Create "You Lose Screen" sound
-local youLoseSound = audio.loadSound("Sounds/YouLose.mp3")
+local youLoseSound = audio.loadSound("Sounds/you lose bkg.wav")
 local youLoseSoundChannel
 
 ----------------------------------------------------------------------------------------
@@ -92,7 +92,7 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
 
         --play "you lose" screen sound
-        youLoseSoundChannel = audio.play(youLoseSound)
+        youLoseSoundChannel = audio.play(youLoseSound, {loops = -1})
     end
 
 end
@@ -120,6 +120,10 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+
+        --stop the music
+        audio.stop(youLoseSoundChannel)
+
     end
 
 end

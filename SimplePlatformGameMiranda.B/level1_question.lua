@@ -87,10 +87,13 @@ end
 local function TouchListenerAnswer(touch)
     userAnswer = answerText.text
 
-    --play correct sound 
-    correctSoundChannel = audio.play(correctSound)
     
     if (touch.phase == "ended") then
+
+        if (soundOn == true) then
+         --play correct sound 
+         correctSoundChannel = audio.play(correctSound)
+       end 
 
         BackToLevel1( )
     
@@ -101,11 +104,14 @@ end
 local function TouchListenerWrongAnswer(touch)
     userAnswer = wrongText1.text
 
-    --play incorrect sound
-    incorrectSoundChannel = audio.play(incorrectSound)
     
     if (touch.phase == "ended") then
         
+        if (soundOn == true) then
+         --play incorrect sound
+         incorrectSoundChannel = audio.play(incorrectSound)
+       end 
+
         BackToLevel1( )
         
         
@@ -116,10 +122,13 @@ end
 local function TouchListenerWrongAnswer2(touch)
     userAnswer = wrongText2.text
 
-    --play incorrect sound
-    incorrectSoundChannel = audio.play(incorrectSound)
     
     if (touch.phase == "ended") then
+
+        if (soundOn == true) then
+         --play incorrect sound
+         incorrectSoundChannel = audio.play(incorrectSound)
+       end 
 
         BackToLevel1( )
         
@@ -130,10 +139,13 @@ end
 local function TouchListenerWrongAnswer3(touch)
     userAnswer = wrongText3.text
 
-    --play incorrect sound
-    incorrectSoundChannel = audio.play(incorrectSound)
     
     if (touch.phase == "ended") then
+
+        if (soundOn == true) then
+         --play incorrect sound
+         incorrectSoundChannel = audio.play(incorrectSound)
+       end 
 
         BackToLevel1( )
         

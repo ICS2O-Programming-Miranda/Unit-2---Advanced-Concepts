@@ -92,7 +92,9 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
 
         --play "you lose" screen sound
-        youLoseSoundChannel = audio.play(youLoseSound, {loops = -1})
+        if(soundOn == true)then
+         youLoseSoundChannel = audio.play(youLoseSound, {loops = -1})
+        end
     end
 
 end

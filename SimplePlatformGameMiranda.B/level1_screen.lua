@@ -256,15 +256,16 @@ local function onCollision( self, event )
 
     if ( event.phase == "began" ) then
 
-        --Pop sound
-        popSoundChannel = audio.play(popSound)
+        
 
         if  (event.target.myName == "spikes1") or 
             (event.target.myName == "spikes2") or
             (event.target.myName == "spikes3") then
 
             -- sound effect for falling on spikes
-            spikeSoundChannel = audio.play(spikeSound)
+            if(soundOn == true )then 
+             spikeSoundChannel = audio.play(spikeSound)
+            end
 
             -- remove runtime listeners that move the character
             RemoveArrowEventListeners()
@@ -288,7 +289,7 @@ local function onCollision( self, event )
                 heart1.isVisible = true
                 heart2.isVisible = false
                 heart3.isVisible = false
-               
+               timer.performWithDelay(200, ReplaceCharacter) 
             
             elseif (numLives == 0) then
                 heart1.isVisible = false
@@ -683,8 +684,17 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
 
-        --play bkg music only on level 1 screen
-        bkgMusicChannel = audio.play(bkgMusic, {loops = -1})
+        if(soundOn == true) then
+         --play bkg music only on level 1 screen
+         bkgMusicChannel = audio.play(bkgMusic, {loops = -1})
+         muteButton.isVisible = false
+         unmuteButton.isVisible = true
+
+        elseif (soundOn == false) then 
+         audio.pause(bkgMusicChannel)
+         muteButton.isVisible = true
+         unmuteButton.isVisible = false
+        end
 
         numLives = 2
         questionsAnswered = 0

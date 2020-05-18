@@ -92,7 +92,9 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
 
         --play "you win" screen sound
-        youWinSoundChannel = audio.play(youWinSound, {loops = -1})
+        if(soundOn == true)then 
+         youWinSoundChannel = audio.play(youWinSound, {loops = -1})
+        end
     end
 
 end
